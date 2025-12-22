@@ -46,11 +46,6 @@ function loadHomepage() {
 
 // Load category page
 function loadCategoryPage(category) {
-    const categoryTitle = document.getElementById('category-title');
-    if (categoryTitle) {
-        categoryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
-    }
-    
     // Update meta tags
     updateCategoryMeta(category);
     
@@ -67,8 +62,8 @@ function loadCategoryPage(category) {
 // Render posts
 function renderPosts() {
     const newsGrid = document.getElementById('news-grid');
-    const loadMoreContainer = document.getElementById('load-more-container');
-    const loadMoreBtn = document.getElementById('load-more-btn');
+    const loadMoreWrap = document.getElementById('load-more-wrap');
+    const loadMoreBtn = document.getElementById('load-more');
     
     if (!newsGrid) return;
     
@@ -89,12 +84,12 @@ function renderPosts() {
     });
     
     // Show/hide load more button
-    if (loadMoreContainer && loadMoreBtn) {
+    if (loadMoreWrap && loadMoreBtn) {
         if (endIndex < filteredPosts.length) {
-            loadMoreContainer.style.display = 'block';
+            loadMoreWrap.style.display = 'block';
             loadMoreBtn.onclick = loadMorePosts;
         } else {
-            loadMoreContainer.style.display = 'none';
+            loadMoreWrap.style.display = 'none';
         }
     }
 }
@@ -102,20 +97,22 @@ function renderPosts() {
 // Create news card
 function createNewsCard(post) {
     const card = document.createElement('article');
-    card.className = 'news-card';
+    card.className = 'card';
     card.onclick = () => window.location.href = `/post.html?slug=${post.slug}`;
     
     const formattedDate = formatDate(post.publishDate);
     
     card.innerHTML = `
-        <div class="news-card-content">
-            <span class="news-card-category">${escapeHtml(post.category)}</span>
-            <h2 class="news-card-title">${escapeHtml(post.title)}</h2>
-            <p class="news-card-summary">${escapeHtml(post.summary)}</p>
-            <div class="news-card-meta">
-                <span class="news-card-date">${formattedDate}</span>
-                <span class="news-card-read">Read More →</span>
+        <div class="card-image"></div>
+        <div class="card-content">
+            <span class="card-tag">${escapeHtml(post.category.toUpperCase())}</span>
+            <div class="card-meta">
+                <span class="card-source">${escapeHtml(post.sourceName)}</span>
+                <span>•</span>
+                <span class="card-time">${formattedDate}</span>
             </div>
+            <h2 class="card-title">${escapeHtml(post.title)}</h2>
+            <p class="card-summary">${escapeHtml(post.summary)}</p>
         </div>
     `;
     
@@ -139,16 +136,18 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     const now = new Date();
     const diffTime = Math.abs(now - date);
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     
-    if (diffDays === 0) return 'Today';
+    if (diffHours < 1) return 'Just now';
+    if (diffHours < 24) return `${diffHours} hours ago`;
     if (diffDays === 1) return 'Yesterday';
     if (diffDays < 7) return `${diffDays} days ago`;
     
-    return date.toLocaleDateString('en-IN', { 
-        year: 'numeric', 
+    return date.toLocaleDateString('en-US', { 
         month: 'short', 
-        day: 'numeric' 
+        day: 'numeric',
+        year: 'numeric'
     });
 }
 
@@ -223,7 +222,7 @@ function highlightActiveNav() {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('cat');
     
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.pill').forEach(link => {
         link.classList.remove('active');
         
         if (!category && link.getAttribute('href') === '/') {
