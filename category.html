@@ -39,59 +39,53 @@
     </script>
 </head>
 <body>
-    <header class="site-header">
+    <header class="header">
         <div class="container">
             <div class="header-content">
                 <a href="/" class="logo">
-                    <h1>Celevera</h1>
-                    <span class="tagline">Bollywood News & Gossip</span>
+                    <div class="logo-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="currentColor"/>
+                            <path d="M12 8L8 10V14L12 16L16 14V10L12 8Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">CELEVERA</span>
                 </a>
-                <nav class="main-nav">
-                    <a href="/" class="nav-link">Latest</a>
-                    <a href="/category.html?cat=gossip" class="nav-link">Gossip</a>
-                    <a href="/category.html?cat=movies" class="nav-link">Movies</a>
-                    <a href="/category.html?cat=fashion" class="nav-link">Fashion</a>
-                    <a href="/category.html?cat=relationships" class="nav-link">Relationships</a>
-                </nav>
+                
+                <div class="search-box">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <input type="text" placeholder="Search news..." class="search-input">
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="main-content">
+    <nav class="category-nav">
         <div class="container">
-            <div class="category-header">
-                <h1 id="category-title">Loading...</h1>
+            <div class="category-pills">
+                <a href="/" class="pill">All</a>
+                <a href="/category.html?cat=gossip" class="pill">Gossip</a>
+                <a href="/category.html?cat=movies" class="pill">Movies</a>
+                <a href="/category.html?cat=fashion" class="pill">Fashion</a>
+                <a href="/category.html?cat=relationships" class="pill">Relationships</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="container">
+            <div class="news-grid" id="news-grid">
+                <div class="loading">Loading articles...</div>
             </div>
             
-            <section class="news-grid" id="news-grid">
-                <div class="loading">Loading articles...</div>
-            </section>
-            
-            <div class="load-more-container" id="load-more-container" style="display: none;">
-                <button class="load-more-btn" id="load-more-btn">Load More Stories</button>
+            <div class="load-more-wrap" id="load-more-wrap" style="display: none;">
+                <button class="load-more" id="load-more">Load More Stories</button>
             </div>
         </div>
     </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>Celevera</h3>
-                    <p>Your trusted source for Bollywood celebrity news and entertainment gossip.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="/">Home</a>
-                    <a href="/category.html?cat=gossip">Gossip</a>
-                    <a href="/category.html?cat=movies">Movies</a>
-                    <a href="/category.html?cat=fashion">Fashion</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Celevera. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="/assets/js/main.js"></script>
 </body>
