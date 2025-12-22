@@ -51,19 +51,27 @@ function renderPost() {
     const formattedDate = formatDate(currentPost.publishDate);
     
     postArticle.innerHTML = `
-        <div class="post-header">
-            <span class="post-category">${escapeHtml(currentPost.category)}</span>
-            <h1 class="post-title">${escapeHtml(currentPost.title)}</h1>
-            <div class="post-meta">
-                <span class="post-date">${formattedDate}</span>
-            </div>
+        <span class="post-category">${escapeHtml(currentPost.category.toUpperCase())}</span>
+        
+        <h1 class="post-title">${escapeHtml(currentPost.title)}</h1>
+        
+        <div class="post-meta">
+            <span class="post-author">By ${escapeHtml(currentPost.sourceName)} Editors</span>
+            <span>•</span>
+            <span class="post-time">Published ${formattedDate}</span>
+        </div>
+        
+        <div class="post-image"></div>
+        
+        <div class="post-summary">
+            ${escapeHtml(currentPost.summary)}
         </div>
         
         <div class="post-content">
             ${escapeHtml(currentPost.summary).split('\n').map(para => `<p>${para}</p>`).join('')}
         </div>
         
-        <div class="post-source">
+        <div class="post-source-box">
             <div class="post-source-label">Source</div>
             <a href="${escapeHtml(currentPost.sourceUrl)}" 
                class="post-source-link" 
@@ -141,7 +149,7 @@ function loadRelatedPosts() {
     related = related.slice(0, 3);
     
     if (related.length === 0) {
-        document.getElementById('related-posts').style.display = 'none';
+        document.getElementById('related-section').style.display = 'none';
         return;
     }
     
@@ -155,20 +163,22 @@ function loadRelatedPosts() {
 // Create related post card
 function createRelatedCard(post) {
     const card = document.createElement('article');
-    card.className = 'news-card';
+    card.className = 'card';
     card.onclick = () => window.location.href = `/post.html?slug=${post.slug}`;
     
     const formattedDate = formatDate(post.publishDate);
     
     card.innerHTML = `
-        <div class="news-card-content">
-            <span class="news-card-category">${escapeHtml(post.category)}</span>
-            <h3 class="news-card-title">${escapeHtml(post.title)}</h3>
-            <p class="news-card-summary">${escapeHtml(post.summary.substring(0, 120))}...</p>
-            <div class="news-card-meta">
-                <span class="news-card-date">${formattedDate}</span>
-                <span class="news-card-read">Read More →</span>
+        <div class="card-image"></div>
+        <div class="card-content">
+            <span class="card-tag">${escapeHtml(post.category.toUpperCase())}</span>
+            <div class="card-meta">
+                <span class="card-source">${escapeHtml(post.sourceName)}</span>
+                <span>•</span>
+                <span class="card-time">${formattedDate}</span>
             </div>
+            <h3 class="card-title">${escapeHtml(post.title)}</h3>
+            <p class="card-summary">${escapeHtml(post.summary.substring(0, 120))}...</p>
         </div>
     `;
     
@@ -180,16 +190,18 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     const now = new Date();
     const diffTime = Math.abs(now - date);
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     
-    if (diffDays === 0) return 'Today';
+    if (diffHours < 1) return 'Just now';
+    if (diffHours < 24) return `${diffHours} hours ago`;
     if (diffDays === 1) return 'Yesterday';
     if (diffDays < 7) return `${diffDays} days ago`;
     
-    return date.toLocaleDateString('en-IN', { 
-        year: 'numeric', 
+    return date.toLocaleDateString('en-US', { 
         month: 'short', 
-        day: 'numeric' 
+        day: 'numeric',
+        year: 'numeric'
     });
 }
 
@@ -207,8 +219,33 @@ function displayError(message) {
         postArticle.innerHTML = `
             <div class="loading">
                 <h2>${message}</h2>
-                <p><a href="/" style="color: #e74c3c;">Return to Homepage</a></p>
+                <p><a href="/" style="color: #ff6b35; text-decoration: underline;">Return to Homepage</a></p>
             </div>
         `;
     }
-                   }
+}
+
+// Social sharing functions
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(currentPost ? currentPost.title : 'Check this out!');
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+}
+
+function shareOnLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Link copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+}
