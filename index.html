@@ -29,7 +29,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/assets/css/style.css">
     
-    <!-- Google Analytics - Replace YOUR_GA4_ID with actual tracking ID -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -44,18 +44,19 @@
             <div class="header-content">
                 <a href="/" class="logo">
                     <div class="logo-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="currentColor"/>
-                            <path d="M12 8L8 10V14L12 16L16 14V10L12 8Z" fill="white"/>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                            <path d="M2 17L12 22L22 17"/>
+                            <path d="M2 12L12 17L22 12"/>
                         </svg>
                     </div>
                     <span class="logo-text">CELEVERA</span>
                 </a>
                 
                 <div class="search-box">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2"/>
-                        <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M14 14L18 18"/>
                     </svg>
                     <input type="text" placeholder="Search news..." class="search-input">
                 </div>
@@ -78,7 +79,6 @@
     <main class="main">
         <div class="container">
             <div class="news-grid" id="news-grid">
-                <!-- News articles will be dynamically loaded here -->
                 <div class="loading">Loading latest Bollywood news...</div>
             </div>
             
