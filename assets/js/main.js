@@ -1,0 +1,235 @@
+// main.js - Homepage and Category Page Logic
+
+const POSTS_PER_PAGE = 12;
+let currentPage = 1;
+let allPosts = [];
+let filteredPosts = [];
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+    loadPosts();
+    highlightActiveNav();
+});
+
+// Load posts from JSON
+async function loadPosts() {
+    try {
+        const response = await fetch('/data/posts.json');
+        if (!response.ok) throw new Error('Failed to load posts');
+        
+        const data = await response.json();
+        allPosts = data.posts || [];
+        
+        // Sort by date (newest first)
+        allPosts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+        
+        // Check if we're on category page
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('cat');
+        
+        if (category) {
+            loadCategoryPage(category);
+        } else {
+            loadHomepage();
+        }
+    } catch (error) {
+        console.error('Error loading posts:', error);
+        displayError();
+    }
+}
+
+// Load homepage
+function loadHomepage() {
+    filteredPosts = allPosts;
+    renderPosts();
+}
+
+// Load category page
+function loadCategoryPage(category) {
+    const categoryTitle = document.getElementById('category-title');
+    if (categoryTitle) {
+        categoryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
+    }
+    
+    // Update meta tags
+    updateCategoryMeta(category);
+    
+    // Filter posts by category
+    filteredPosts = allPosts.filter(post => post.category.toLowerCase() === category.toLowerCase());
+    
+    if (filteredPosts.length === 0) {
+        displayNoResults(category);
+    } else {
+        renderPosts();
+    }
+}
+
+// Render posts
+function renderPosts() {
+    const newsGrid = document.getElementById('news-grid');
+    const loadMoreContainer = document.getElementById('load-more-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    
+    if (!newsGrid) return;
+    
+    const startIndex = 0;
+    const endIndex = currentPage * POSTS_PER_PAGE;
+    const postsToShow = filteredPosts.slice(startIndex, endIndex);
+    
+    if (postsToShow.length === 0) {
+        newsGrid.innerHTML = '<div class="loading">No articles found</div>';
+        return;
+    }
+    
+    newsGrid.innerHTML = '';
+    
+    postsToShow.forEach(post => {
+        const card = createNewsCard(post);
+        newsGrid.appendChild(card);
+    });
+    
+    // Show/hide load more button
+    if (loadMoreContainer && loadMoreBtn) {
+        if (endIndex < filteredPosts.length) {
+            loadMoreContainer.style.display = 'block';
+            loadMoreBtn.onclick = loadMorePosts;
+        } else {
+            loadMoreContainer.style.display = 'none';
+        }
+    }
+}
+
+// Create news card
+function createNewsCard(post) {
+    const card = document.createElement('article');
+    card.className = 'news-card';
+    card.onclick = () => window.location.href = `/post.html?slug=${post.slug}`;
+    
+    const formattedDate = formatDate(post.publishDate);
+    
+    card.innerHTML = `
+        <div class="news-card-content">
+            <span class="news-card-category">${escapeHtml(post.category)}</span>
+            <h2 class="news-card-title">${escapeHtml(post.title)}</h2>
+            <p class="news-card-summary">${escapeHtml(post.summary)}</p>
+            <div class="news-card-meta">
+                <span class="news-card-date">${formattedDate}</span>
+                <span class="news-card-read">Read More →</span>
+            </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Load more posts
+function loadMorePosts() {
+    currentPage++;
+    renderPosts();
+    
+    // Smooth scroll to new content
+    window.scrollTo({
+        top: document.getElementById('news-grid').offsetHeight - 200,
+        behavior: 'smooth'
+    });
+}
+
+// Format date
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    
+    return date.toLocaleDateString('en-IN', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+    });
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Display error
+function displayError() {
+    const newsGrid = document.getElementById('news-grid');
+    if (newsGrid) {
+        newsGrid.innerHTML = `
+            <div class="loading">
+                Unable to load articles. Please try again later.
+            </div>
+        `;
+    }
+}
+
+// Display no results
+function displayNoResults(category) {
+    const newsGrid = document.getElementById('news-grid');
+    if (newsGrid) {
+        newsGrid.innerHTML = `
+            <div class="loading">
+                No articles found in ${category} category yet.
+            </div>
+        `;
+    }
+}
+
+// Update category meta tags
+function updateCategoryMeta(category) {
+    const categoryName = category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
+    const title = `${categoryName} - Bollywood News | Celevera`;
+    const description = `Latest Bollywood ${categoryName.toLowerCase()} news, celebrity updates, and entertainment gossip on Celevera.`;
+    const url = `https://celevera.com/category.html?cat=${category}`;
+    
+    document.title = title;
+    
+    const metaDescription = document.getElementById('page-description');
+    if (metaDescription) metaDescription.setAttribute('content', description);
+    
+    // Update OG tags
+    const ogTitle = document.getElementById('og-title');
+    const ogDescription = document.getElementById('og-description');
+    const ogUrl = document.getElementById('og-url');
+    
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    if (ogDescription) ogDescription.setAttribute('content', description);
+    if (ogUrl) ogUrl.setAttribute('content', url);
+    
+    // Update Twitter tags
+    const twitterTitle = document.getElementById('twitter-title');
+    const twitterDescription = document.getElementById('twitter-description');
+    const twitterUrl = document.getElementById('twitter-url');
+    
+    if (twitterTitle) twitterTitle.setAttribute('content', title);
+    if (twitterDescription) twitterDescription.setAttribute('content', description);
+    if (twitterUrl) twitterUrl.setAttribute('content', url);
+    
+    // Update canonical
+    const canonical = document.getElementById('canonical-url');
+    if (canonical) canonical.setAttribute('href', url);
+}
+
+// Highlight active nav link
+function highlightActiveNav() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('cat');
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        
+        if (!category && link.getAttribute('href') === '/') {
+            link.classList.add('active');
+        } else if (category && link.getAttribute('href').includes(`cat=${category}`)) {
+            link.classList.add('active');
+        }
+    });
+}
