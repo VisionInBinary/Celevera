@@ -39,58 +39,79 @@
     </script>
 </head>
 <body>
-    <header class="site-header">
+    <header class="header">
         <div class="container">
             <div class="header-content">
                 <a href="/" class="logo">
-                    <h1>Celevera</h1>
-                    <span class="tagline">Bollywood News & Gossip</span>
+                    <div class="logo-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="currentColor"/>
+                            <path d="M12 8L8 10V14L12 16L16 14V10L12 8Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">CELEVERA</span>
                 </a>
-                <nav class="main-nav">
-                    <a href="/" class="nav-link">Latest</a>
-                    <a href="/category.html?cat=gossip" class="nav-link">Gossip</a>
-                    <a href="/category.html?cat=movies" class="nav-link">Movies</a>
-                    <a href="/category.html?cat=fashion" class="nav-link">Fashion</a>
-                    <a href="/category.html?cat=relationships" class="nav-link">Relationships</a>
-                </nav>
+                
+                <div class="search-box">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <input type="text" placeholder="Search news..." class="search-input">
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="main-content">
+    <div class="back-nav">
         <div class="container">
-            <article class="post-article" id="post-article">
+            <a href="/" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Back to News
+            </a>
+            
+            <div class="social-share">
+                <a href="#" class="share-icon" onclick="shareOnFacebook(); return false;">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M15 1H12C9.23858 1 7 3.23858 7 6V9H4V13H7V19H11V13H14L15 9H11V6C11 5.44772 11.4477 5 12 5H15V1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#" class="share-icon" onclick="shareOnTwitter(); return false;">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M19 3.00897C18.2641 3.33524 17.4733 3.55731 16.6437 3.66097C17.4905 3.14522 18.1413 2.3297 18.4475 1.36097C17.6549 1.84265 16.7767 2.18847 15.8419 2.37197C15.0935 1.56417 14.0276 1.07397 12.8469 1.07397C10.5807 1.07397 8.74313 2.91155 8.74313 5.17897C8.74313 5.50097 8.78001 5.81297 8.85063 6.11097C5.44001 5.94097 2.41688 4.30097 0.392502 1.81297C0.0393765 2.42647 -0.152498 3.14522 -0.152498 3.90997C-0.152498 5.36622 0.589377 6.64947 1.72063 7.41172C1.03188 7.38947 0.381877 7.20597 -0.19125 6.90097V6.95497C-0.19125 8.94622 1.23063 10.602 3.10563 10.9782C2.76188 11.073 2.39875 11.1235 2.02375 11.1235C1.75875 11.1235 1.50188 11.097 1.25188 11.047C1.77313 12.6757 3.29313 13.8615 5.08688 13.8952C3.67563 14.9957 1.9 15.6412 0 15.6412C-0.331875 15.6412 -0.659375 15.622 -0.98 15.5825C0.815627 16.7412 2.98688 17.4175 5.29063 17.4175C12.8375 17.4175 16.9637 11.1915 16.9637 5.66197C16.9637 5.48397 16.96 5.30597 16.9519 5.13172C17.7563 4.54397 18.45 3.81222 19 3.00897Z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="#" class="share-icon" onclick="shareOnLinkedIn(); return false;">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M16 1H4C2.34315 1 1 2.34315 1 4V16C1 17.6569 2.34315 19 4 19H16C17.6569 19 19 17.6569 19 16V4C19 2.34315 17.6569 1 16 1Z" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M7 9V15M7 6V6.01M13 15V11.5C13 10.1193 11.8807 9 10.5 9C9.11929 9 8 10.1193 8 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </a>
+                <a href="#" class="share-icon" onclick="copyLink(); return false;">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M8 11C8 11 8.5 12 10 12C11.5 12 12 11 12 11L15 8C16.1046 6.89543 16.1046 5.10457 15 4C13.8954 2.89543 12.1046 2.89543 11 4L10.5 4.5M12 9C12 9 11.5 8 10 8C8.5 8 8 9 8 9L5 12C3.89543 13.1046 3.89543 14.8954 5 16C6.10457 17.1046 7.89543 17.1046 9 16L9.5 15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <article class="post" id="post-article">
                 <div class="loading">Loading article...</div>
             </article>
             
-            <section class="related-posts" id="related-posts">
-                <h2>More Bollywood News</h2>
+            <section class="related-section" id="related-section">
+                <h2 class="related-title">Read Next</h2>
                 <div class="related-grid" id="related-grid">
                     <!-- Related posts will be loaded here -->
                 </div>
             </section>
         </div>
     </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>Celevera</h3>
-                    <p>Your trusted source for Bollywood celebrity news and entertainment gossip.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="/">Home</a>
-                    <a href="/category.html?cat=gossip">Gossip</a>
-                    <a href="/category.html?cat=movies">Movies</a>
-                    <a href="/category.html?cat=fashion">Fashion</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Celevera. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="/assets/js/post.js"></script>
 </body>
