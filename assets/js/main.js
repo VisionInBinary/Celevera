@@ -11,6 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
     highlightActiveNav();
 });
 
+// Get category image path
+function getCategoryImage(category) {
+    const categoryMap = {
+        'movies': '/assets/images/movies.jpg',
+        'gossip': '/assets/images/gossip.jpg',
+        'fashion': '/assets/images/fashion.jpg',
+        'relationships': '/assets/images/relationships.jpg',
+        'controversy': '/assets/images/controversy.jpg',
+        'social-media': '/assets/images/social-media.jpg'
+    };
+    
+    return categoryMap[category.toLowerCase()] || '/assets/images/default.jpg';
+}
+
 // Load posts from JSON
 async function loadPosts() {
     try {
@@ -101,9 +115,10 @@ function createNewsCard(post) {
     card.onclick = () => window.location.href = `/post.html?slug=${post.slug}`;
     
     const formattedDate = formatDate(post.publishDate);
+    const imageUrl = getCategoryImage(post.category);
     
     card.innerHTML = `
-        <div class="card-image"></div>
+        <img src="${imageUrl}" alt="${escapeHtml(post.category)} news" class="card-image" loading="lazy">
         <div class="card-content">
             <span class="card-tag">${escapeHtml(post.category.toUpperCase())}</span>
             <div class="card-meta">
@@ -231,4 +246,4 @@ function highlightActiveNav() {
             link.classList.add('active');
         }
     });
-}
+                                                                                      }
