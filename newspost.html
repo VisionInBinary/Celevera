@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>News Post Generator - Celevera (PRIVATE)</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .generator-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .generator-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e74c3c;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .btn-generate {
+            background: #e74c3c;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-generate:hover {
+            background: #c0392b;
+        }
+        .output-container {
+            margin-top: 30px;
+            display: none;
+        }
+        .output-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #27ae60;
+        }
+        .json-output {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .btn-copy {
+            margin-top: 10px;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-copy:hover {
+            background: #229954;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .char-count {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="generator-container">
+        <div class="generator-header">
+            <h1>📝 News Post Generator</h1>
+            <p style="color: #666;">Private tool for creating JSON objects. Not linked anywhere on the site.</p>
+        </div>
+
+        <div class="warning-box">
+            <strong>⚠️ Important:</strong> This page does NOT save data. It only generates JSON that you must manually copy into /data/posts.json and redeploy.
+        </div>
+
+        <form id="news-form">
+            <div class="form-group">
+                <label for="title">News Title *</label>
+                <input type="text" id="title" required placeholder="Enter the rewritten headline">
+                <div class="char-count" id="title-count">0 characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="summary">Summary (6-7 lines) *</label>
+                <textarea id="summary" required placeholder="Paste the AI-generated summary here"></textarea>
+                <div class="char-count" id="summary-count">0 characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" required>
+                    <option value="">Select category</option>
+                    <option value="gossip">Gossip</option>
+                    <option value="movies">Movies</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="relationships">Relationships</option>
+                    <option value="controversy">Controversy</option>
+                    <option value="social-media">Social Media</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="source-name">Source Name *</label>
+                <input type="text" id="source-name" required placeholder="e.g., Times of India, Hindustan Times">
+            </div>
+
+            <div class="form-group">
+                <label for="source-url">Source URL *</label>
+                <input type="url" id="source-url" required placeholder="https://...">
+            </div>
+
+            <div class="form-group">
+                <label for="publish-date">Publish Date *</label>
+                <input type="date" id="publish-date" required>
+            </div>
+
+            <button type="submit" class="btn-generate">Generate JSON</button>
+        </form>
+
+        <div class="output-container" id="output-container">
+            <div class="output-label">✅ JSON Generated - Copy this and add to /data/posts.json:</div>
+            <div class="json-output" id="json-output"></div>
+            <button class="btn-copy" id="btn-copy">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script src="/assets/js/newspost.js"></script>
+</body>
+</html>
