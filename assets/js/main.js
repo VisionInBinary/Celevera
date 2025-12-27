@@ -11,6 +11,24 @@ document.addEventListener('DOMContentLoaded', () => {
     highlightActiveNav();
 });
 
+// Get category image path
+function getCategoryImage(category) {
+    const categoryMap = {
+        'gossip': '/assets/images/gossip.jpg',
+        'movies': '/assets/images/movies.jpg',
+        'movies2': '/assets/images/movies2.jpg',
+        'movies3': '/assets/images/movies3.jpg',
+        'fashion': '/assets/images/fashion.jpg',
+        'fashion2': '/assets/images/fashion2.jpg',
+        'relationships': '/assets/images/relationships.jpg',
+        'relationships2': '/assets/images/relationships2.jpg',
+        'controversy': '/assets/images/controversy.jpg',
+        'social-media': '/assets/images/social-media.jpg'
+    };
+    
+    return categoryMap[category.toLowerCase()] || '/assets/images/default.jpg';
+}
+
 // Load posts from JSON
 async function loadPosts() {
     try {
@@ -101,9 +119,10 @@ function createNewsCard(post) {
     card.onclick = () => window.location.href = `/post.html?slug=${post.slug}`;
     
     const formattedDate = formatDate(post.publishDate);
+    const imageUrl = getCategoryImage(post.category);
     
     card.innerHTML = `
-        <div class="card-image"></div>
+        <img src="${imageUrl}" alt="${escapeHtml(post.category)} news" class="card-image" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.src='';">
         <div class="card-content">
             <span class="card-tag">${escapeHtml(post.category.toUpperCase())}</span>
             <div class="card-meta">
