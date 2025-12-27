@@ -10,10 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeForm() {
     const form = document.getElementById('news-form');
     const publishDateInput = document.getElementById('publish-date');
+    const publishTimeInput = document.getElementById('publish-time');
     
-    // Set today's date as default
-    const today = new Date().toISOString().split('T')[0];
-    publishDateInput.value = today;
+    // Set today's date and current time as default
+    const now = new Date();
+    publishDateInput.value = now.toISOString().split('T')[0];
+    publishTimeInput.value = now.toTimeString().slice(0, 5);
     
     form.addEventListener('submit', handleSubmit);
 }
@@ -44,6 +46,10 @@ function handleSubmit(e) {
     const sourceName = document.getElementById('source-name').value.trim();
     const sourceUrl = document.getElementById('source-url').value.trim();
     const publishDate = document.getElementById('publish-date').value;
+    const publishTime = document.getElementById('publish-time').value;
+    
+    // Combine date and time into ISO format
+    const publishDateTime = `${publishDate}T${publishTime}:00`;
     
     // Generate slug from title
     const slug = generateSlug(title);
@@ -58,7 +64,7 @@ function handleSubmit(e) {
         title: title,
         summary: summary,
         category: category,
-        publishDate: publishDate,
+        publishDate: publishDateTime,
         sourceName: sourceName,
         sourceUrl: sourceUrl
     };
