@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Celevera - Latest Bollywood News, Celebrity Gossip & Entertainment</title>
     <meta name="description" content="Stay updated with the latest Bollywood celebrity news, gossip, movie updates, and trending entertainment stories. Your source for all things Bollywood.">
-    
-    <!-- Open Graph / Facebook -->
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://celevera.pages.dev/">
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://celevera.com/">
+    <meta property="og:url" content="https://celevera.pages.dev/">
     <meta property="og:title" content="Celevera - Latest Bollywood News & Celebrity Gossip">
     <meta property="og:description" content="Your go-to source for Bollywood celebrity news, gossip, and entertainment updates.">
-    <meta property="og:image" content="https://celevera.com/assets/images/og-image.jpg">
-    
+    <meta property="og:image" content="https://celevera.pages.dev/assets/images/og-image.jpg">
+
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://celevera.com/">
-    <meta property="twitter:title" content="Celevera - Latest Bollywood News & Celebrity Gossip">
-    <meta property="twitter:description" content="Your go-to source for Bollywood celebrity news, gossip, and entertainment updates.">
-    <meta property="twitter:image" content="https://celevera.com/assets/images/og-image.jpg">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://celevera.com/">
-    
-    <!-- Stylesheet -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://celevera.pages.dev/">
+    <meta name="twitter:title" content="Celevera - Latest Bollywood News & Celebrity Gossip">
+    <meta name="twitter:description" content="Your go-to source for Bollywood celebrity news, gossip, and entertainment updates.">
+    <meta name="twitter:image" content="https://celevera.pages.dev/assets/images/og-image.jpg">
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/style.css">
-    
-    <!-- Google Analytics - Replace YOUR_GA4_ID with actual tracking ID -->
+
+    <!-- Google Analytics (replace YOUR_GA4_ID) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -38,57 +43,64 @@
         gtag('config', 'YOUR_GA4_ID');
     </script>
 </head>
+
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">
-                    <div class="logo-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="currentColor"/>
-                            <path d="M12 8L8 10V14L12 16L16 14V10L12 8Z" fill="white"/>
-                        </svg>
-                    </div>
-                    <span class="logo-text">CELEVERA</span>
-                </a>
-                
-                <div class="search-box">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2"/>
-                        <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="currentColor"/>
+                        <path d="M12 8L8 10V14L12 16L16 14V10L12 8Z" fill="white"/>
                     </svg>
-                    <input type="text" placeholder="Search news..." class="search-input">
                 </div>
-            </div>
-        </div>
-    </header>
+                <span class="logo-text">CELEVERA</span>
+            </a>
 
-    <nav class="category-nav">
-        <div class="container">
-            <div class="category-pills">
-                <a href="/" class="pill active">All</a>
-                <a href="/category.html?cat=gossip" class="pill">Gossip</a>
-                <a href="/category.html?cat=movies" class="pill">Movies</a>
-                <a href="/category.html?cat=fashion" class="pill">Fashion</a>
-                <a href="/category.html?cat=relationships" class="pill">Relationships</a>
-                <a href="/category.html?cat=controversy" class="pill">Controversy</a>
+            <div class="search-box">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M19 19L14.65 14.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input type="text" placeholder="Search news..." class="search-input">
             </div>
-        </div>
-    </nav>
 
-    <main class="main">
-        <div class="container">
-            <div class="news-grid" id="news-grid">
-                <!-- News articles will be dynamically loaded here -->
-                <div class="loading">Loading latest Bollywood news...</div>
-            </div>
-            
-            <div class="load-more-wrap" id="load-more-wrap" style="display: none;">
-                <button class="load-more" id="load-more">Load More Stories</button>
-            </div>
         </div>
-    </main>
+    </div>
+</header>
 
-    <script src="/assets/js/main.js"></script>
+<nav class="category-nav">
+    <div class="container">
+        <div class="category-pills">
+            <a href="/" class="pill active">All</a>
+            <a href="/category.html?cat=gossip" class="pill">Gossip</a>
+            <a href="/category.html?cat=movies" class="pill">Movies</a>
+            <a href="/category.html?cat=fashion" class="pill">Fashion</a>
+            <a href="/category.html?cat=relationships" class="pill">Relationships</a>
+            <a href="/category.html?cat=controversy" class="pill">Controversy</a>
+        </div>
+    </div>
+</nav>
+
+<main class="main">
+    <div class="container">
+
+        <div class="news-grid" id="news-grid">
+            <div class="loading">Loading latest Bollywood news...</div>
+        </div>
+
+        <div class="load-more-wrap" id="load-more-wrap" style="display:none;">
+            <button class="load-more" id="load-more">Load More Stories</button>
+        </div>
+
+    </div>
+</main>
+
+<script src="/assets/js/main.js"></script>
+
 </body>
 </html>
+
