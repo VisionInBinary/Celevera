@@ -5,4 +5,4 @@ Allow: /
 Disallow: /newspost.html
 
 # Sitemap location
-Sitemap: https://celevera.com/sitemap.xml
+Sitemap: https://celevera.pages.dev/sitemap.xml
