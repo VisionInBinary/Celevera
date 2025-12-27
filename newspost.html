@@ -43,6 +43,11 @@
             min-height: 120px;
             resize: vertical;
         }
+        .datetime-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+        }
         .btn-generate {
             background: #e74c3c;
             color: white;
@@ -134,8 +139,12 @@
                     <option value="">Select category</option>
                     <option value="gossip">Gossip</option>
                     <option value="movies">Movies</option>
+                    <option value="movies2">Movies 2</option>
+                    <option value="movies3">Movies 3</option>
                     <option value="fashion">Fashion</option>
+                    <option value="fashion2">Fashion 2</option>
                     <option value="relationships">Relationships</option>
+                    <option value="relationships2">Relationships 2</option>
                     <option value="controversy">Controversy</option>
                     <option value="social-media">Social Media</option>
                 </select>
@@ -152,8 +161,12 @@
             </div>
 
             <div class="form-group">
-                <label for="publish-date">Publish Date *</label>
-                <input type="date" id="publish-date" required>
+                <label>Publish Date & Time *</label>
+                <div class="datetime-group">
+                    <input type="date" id="publish-date" required>
+                    <input type="time" id="publish-time" required>
+                </div>
+                <div class="char-count">Date and time will be combined into ISO format</div>
             </div>
 
             <button type="submit" class="btn-generate">Generate JSON</button>
