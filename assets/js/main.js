@@ -112,7 +112,7 @@ function createNewsCard(post) {
                 <span class="card-time">${formattedDate}</span>
             </div>
             <h2 class="card-title">${escapeHtml(post.title)}</h2>
-            <p class="card-summary">${escapeHtml(post.summary)}</p>
+            <p class="card-summary">${escapeHtml(truncateText(post.summary, 120))}</p>
         </div>
     `;
     
